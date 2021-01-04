@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}My NOAA Forecast App | Registration{% endblock %}
+
+{% block content %}
+
+	<div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-4">
+          <div class="acct card-body">
+            <h5 class="acct card-title text-center">Account Registration</h5>
+			<form method="post" class="form-signin" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{form|crispy}}
+				<input type="hidden" name="next" value="{{ next }}">
+				<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+			</form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

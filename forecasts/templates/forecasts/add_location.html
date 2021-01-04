@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}My NOAA Forecast App | Add Location{% endblock %}
+
+{% block content %}
+
+	<h3 class="my-5">Add Forecast Locations</h3>
+	<p>Enter a valid US zipcode to add a location.</p>
+	
+	<div class="container">
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{form |crispy}}
+			<button type="submit" class="btn btn-primary btn-block">Add Zipcode</button>
+		</form>				
+	</div>
+
+{% endblock %}

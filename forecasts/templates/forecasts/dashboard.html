@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load index %}
+
+{% block title %}My NOAA Forecast App | My Locations{% endblock %}
+
+{% block content %}
+
+	<p class="lead my-4 font-italic">Welcome back, {{user.name}}!</p>
+	<h3 class="my-2">My Forecast Locations</h3>
+	
+	{% if api %}
+		{% if noaa_data %}
+			{% if  locations.count < 5 %}
+			<div class="my-2">
+				<a class="btn btn-primary" href="{% url 'add_location' %}" role="button"><i class="fa fa-plus"></i> ADD NEW LOCATION</a>
+				<span class="font-italic small"> (You can add up to 5 locations max)</span> 
+			</div>
+			{% else %}
+			<div class="my-2">
+				<span class="font-italic small">Your locations limit (5) has been reached. To add another location, you will need to delete one.</span> 
+			</div>
+			{% endif %}
+			{% for location in locations %}
+			<div class="table-responsive my-2"> 
+				<table class="table table-sm table-dark table-bordered text-center" style="background: rgba(31, 3, 1, 0.7);">
+					<thead>
+						<tr>
+							<th style="width: 20%">ZIPCODE</th>
+							{% for date in dates %}
+							<th style="width: 16%">{{ date }}</th>
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div class="mt-2" style="overflow: hidden;">
+									<iframe width="200"
+										  height="120"
+										  frameborder="0"
+										  style="border:0"
+										  src="https://www.google.com/maps/embed/v1/view?center={{ map_points|index:forloop.counter0|index:0 }},{{ map_points|index:forloop.counter0|index:1 }}&zoom=8&key={{ api_key }}"
+										  allowfullscreen>
+									</iframe>
+								</div>
+								<h5 class="text-center mt-1 mb-2 mx-3 font-weight-bold">{{ location.zipcode }}</h5>
+								<p class="mt-2"><a class="btn btn-info btn-sm" href="{% url 'delete_location' pk=location.pk %}" role="button"><i class="fa fa-trash"></i> DELETE</a></p>
+							</td>
+							{% for num in date_range %}
+							<td>
+								<img class="img-fluid weather-img mt-2" src={{ noaa_data|index:forloop.parentloop.counter0|index:num|index:2}} width="100" height="110" alt="">
+								<h6 id="weather" class="mt-2 font-weight-bold">{{ noaa_data|index:forloop.parentloop.counter0|index:num|index:3 }}</h6>											
+								<table class="table table-sm table-plain text-center" >
+									<tr>
+										<td>
+											<span class="x-small" id="weather">MAX TEMP</span>
+											<h5 id="weather">{{ noaa_data|index:forloop.parentloop.counter0|index:num|index:0 }}<i class="wi wi-fahrenheit"></i></h5>
+										</td>
+										<td>											
+											<span class="x-small" id="weather">MIN TEMP</span>	
+											<h5 id="weather">{{ noaa_data|index:forloop.parentloop.counter0|index:num|index:1 }}<i class="wi wi-fahrenheit"></i></h5>
+										</td>
+									</tr>									
+								</table>
+							</td>						
+						    {% endfor %}
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			{% endfor %}
+			<!-- If NOAA data is empty  -->
+		{% else %} 
+			<h4 class="mt-5 font-italic">No locations yet. Please add a zipcode to your location list (up to 5 locations maximum).</h4>
+			<a class="btn btn-primary" href="{% url 'add_location' %}" role="button"><i class="fa fa-plus"></i> ADD NEW LOCATION</a>
+		{% endif %}		
+	{% else %}
+		<br><br><br>
+		<h2>{{ apiMsg }}</h2>
+		<h4>There was a problem retrieving weather information...please reload the page or try again later.</h4>
+		<br><br><br>
+	{% endif %}	
+
+{% endblock %}

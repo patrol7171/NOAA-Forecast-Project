@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load crispy_forms_tags %}
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{% block title %}{% endblock %}</title>
+	
+	<!-- Bootstrap & JQuery -->	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	
+	<!-- Weather Icons CSS -->	
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css"/>
+	
+	<!-- Custome CSS & Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet"/>
+	<link href="{% static 'css/custom_styles.css' %}" rel="stylesheet" />
+	<link href="{% static 'images/favicon.png' %}" rel="shortcut icon" type="image/png"/>	
+	
+	<style type="text/css">
+		{% block pg-style %}{% endblock %}
+	</style>
+  </head>
+  <body class="d-flex flex-column">
+  
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark static-top" style="background-color:#1a0000;">
+	  <div class="container">
+		<a class="navbar-brand" href="{% url 'home' %}">
+		  <img src="{% static 'images/nfp-logo.png' %}" height='85%' width='85%' alt="logo"/>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="nav-content">
+		{% if user.is_authenticated %} 		
+		  <ul class="nav navbar-nav ml-auto" id="dropdown">
+			<li class="nav-item">
+				<img class="rounded-circle acct-img" src="{{ user.picture.url }}">
+			</li>		  
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">My Account</a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+					<a class="dropdown-item" href="{% url 'password_change' %}">Change My Password</a>
+				</div>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+			</li>
+		  </ul> 
+		 {% else %}
+		  <ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+			  <a class="nav-link" href="{% url 'login' %}">Login</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="{% url 'register' %}">Register</a>
+			</li>
+		  </ul>
+		{% endif %} 
+		</div>
+	  </div>
+	</nav>
+  
+	<!-- Page Content -->
+	<div id="page-content">	
+		<div class="container">
+			{% block content %} 
+			{% endblock content %}
+		</div>
+	</div>		
+	<!-- /.container -->
+	
+	<footer id="sticky-footer" class="py-2 mt-2 text-white-50">
+		<div class="container text-center">
+			<span class='small'>My Weather Forecaster © {% now 'Y' %}</span> 
+			<br>
+			<span class='small'>Created by <a href="https://patrol7171.github.io" class="external" target="_blank">Patricia Rollins</a></span>
+		</div>			
+    </footer>
+	
+  </body>
+</html>

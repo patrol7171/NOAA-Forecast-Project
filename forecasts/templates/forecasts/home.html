@@ -1,0 +1,73 @@
+  
+{% extends 'base.html' %}
+
+{% block title %}My NOAA Forecast App | Home{% endblock %}
+
+{% block content %}
+
+  <!-- Heading -->
+  <h1 class="mt-4 mb-1 title-header">My Weather Forecaster</h1>
+  <p class="mb-2" id="noaa-link"><i>Courtesy of <a href="https://graphical.weather.gov/xml/rest.php" class="external" target="_blank">NOAA's National Weather Service</a></i><p>
+
+  <!-- Today's Forecast & Map Row -->
+  {% if api %}
+  <div class="row">
+    <div class="col-md-5 text-center">
+		<iframe width="400"
+			  height="200"
+			  frameborder="0"
+			  style="border:0"
+			  src="https://www.google.com/maps/embed/v1/view?center={{ latitude }},{{ longitude }}&zoom=8&key={{ api_key }}"
+			  allowfullscreen>
+		</iframe>
+    </div>	
+    <div class="col-md-7">
+      <h4 class="my-1">Today's Weather Outlook For:</h4>	
+      <h2 class="my-2">{{ city }}, {{ region_code }}</h2>
+		<div class="row">
+			<div class="col-md-3 col-sm-2 text-center">		
+				<img class="img-fluid weather-img" src={{ today_data.0 }} width="100" height="110" alt="today">
+			</div>	
+			<div class="col-md-9 col-sm-10">
+			  <span class="text-left">Maximum Temperature: {{ today_data.2 }}<i class="wi wi-fahrenheit"></i></span><br>
+			  <span class="text-left">Minimum Temperature: {{ today_data.3 }}<i class="wi wi-fahrenheit"></i></span><br>
+			  <span class="text-left">Weather Conditions: {{ today_data.4 }}</span><br>
+			  <span class="text-left font-italic small">Need a more personalized weather forecast?...Go ahead and <a href="{% url 'register' %}">register</a>.</span>	
+			</div>
+		</div>	  
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Next 5-Day Forecast Row -->
+  <h4 class="my-3">Five Day Forecast for {{ city }}, {{ region_code }}</h4>
+
+  <div class="row">
+	{% for icon, date, maxTemp, minTemp, conditions in week_data %}
+    <div class="col mb-3 text-center weather-div" width="200" height="200" 
+		style="background: linear-gradient( rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7) ), url({{ icon }}); background-repeat:no-repeat; background-size:100% 100%;">
+		<h6 class="mt-2 mb-1" id="weather"><b>{{ date }}</b></h6>
+		<div class="row">
+			<div class="col-md-6 col-sm-6 text-center">	
+				<span class="x-small" id="weather">MAX TEMP</span>
+				<h2 id="weather">{{ maxTemp }}<i class="wi wi-fahrenheit"></i></h2>
+			</div>
+			<div class="col-md-6 col-sm-6 text-center border-left">
+				<span class="x-small" id="weather">MIN TEMP</span>	
+				<h2 id="weather">{{ minTemp }}<i class="wi wi-fahrenheit"></i></h2>
+			</div>
+		</div>
+		<h5 id="weather" class="mb-4 font-weight-bolder">{{ conditions }}</h5>		
+    </div>
+	{% endfor %}
+  </div>
+  <!-- /.row -->
+  
+  {% else %}
+	<br><br><br>
+	<h2>{{ apiMsg }}</h2><br>
+	<h4>There was a problem retrieving weather information...please reload the page or try again later.</h4>
+	<br><br><br>
+  {% endif %}
+
+{% endblock %}
