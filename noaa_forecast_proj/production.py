@@ -3,11 +3,6 @@ import os
 
 
 
-SECRET_KEY = os.environ['APP_SECRET_KEY']
-DEBUG = False
-GOOGLE_MAPS_API_KEY = os.environ['GOOGLE_MAPS_API_KEY']
-IPSTACK_API_KEY = os.environ['IPSTACK_API_KEY']
-
 # Configure the domain name using the environment variable Azure automatically creates
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
 

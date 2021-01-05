@@ -12,6 +12,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = []
 
+SECRET_KEY = os.environ['APP_SECRET_KEY']
+DEBUG = False
+GOOGLE_MAPS_API_KEY = os.environ['GOOGLE_MAPS_API_KEY']
+IPSTACK_API_KEY = os.environ['IPSTACK_API_KEY']
+
 ## LOCAL SETTINGS ##
 # SECRET_KEY = config('SECRET_KEY')
 # DEBUG = config('DEBUG', cast=bool)
