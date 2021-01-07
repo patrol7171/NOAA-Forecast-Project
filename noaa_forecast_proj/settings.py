@@ -83,6 +83,18 @@ WSGI_APPLICATION = 'noaa_forecast_proj.wsgi.application'
 #     }
 # }
 
+hostname = os.environ['DBHOST']
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DBNAME'],
+        'HOST': hostname + ".postgres.database.azure.com",
+        'USER': os.environ['DBUSER'] + "@" + hostname,
+        'PASSWORD': os.environ['DBPASS'] 
+    }
+}
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
