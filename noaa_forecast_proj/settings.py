@@ -13,7 +13,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Configure the domain name using the environment variable Azure automatically creates
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
 
-DEBUG = True
+DEBUG = False
 GOOGLE_MAPS_API_KEY = os.environ['GOOGLE_MAPS_API_KEY']
 IPSTACK_API_KEY = os.environ['IPSTACK_API_KEY']
 
@@ -147,8 +147,10 @@ AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_STATIC_CONTAINER}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_MEDIA_CONTAINER}/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'noaa_forecast_proj', 'static')
+    os.path.join(BASE_DIR, 'sqlvamropuj6vnotqm', 'static')
+    #os.path.join(BASE_DIR, 'noaa_forecast_proj', 'static')
 ]
 
 

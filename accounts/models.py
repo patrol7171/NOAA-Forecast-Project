@@ -44,7 +44,8 @@ class AccountManager(BaseUserManager):
 class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=150)
-    picture = models.ImageField(blank=True, default='default.png')
+    picture = models.ImageField(default='default.png', upload_to='media')
+    #picture = models.ImageField(blank=True, default='default.png')
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -60,5 +61,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.name.split()[0]
+    
+    def save(self, *args ,**kwargs):
+        super().save(*args ,**kwargs)
+        img =  Image.open(self.image.path)
+        if img.height > 150 or img.width > 150:
+            output_size = (150, 150)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
 
