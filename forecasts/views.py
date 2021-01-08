@@ -29,7 +29,7 @@ class HomeView(TemplateView):
         if not is_cached:
                 #FOR PRODUCTION -->
                 params = {'access_key': settings.IPSTACK_API_KEY}
-                ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
+                ip_address = self.request.META.get('HTTP_X_FORWARDED_FOR', '')
                 ipstack_api_request = requests.get('http://api.ipstack.com/%s' % ip_address, params=params)
                 
                 # FOR LOCAL -->
