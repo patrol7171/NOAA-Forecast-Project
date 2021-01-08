@@ -149,8 +149,7 @@ MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_MEDIA_CONTAINER}/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'sqlvamropuj6vnotqm', 'static')
-    #os.path.join(BASE_DIR, 'noaa_forecast_proj', 'static')
+    os.path.join(BASE_DIR, 'noaa_forecast_proj', 'static')
 ]
 
 
