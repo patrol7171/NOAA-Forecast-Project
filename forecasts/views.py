@@ -27,12 +27,12 @@ class HomeView(TemplateView):
         ipstack_api_info = []
         ipstack_api_status = None
         if not is_cached:
-                #FOR DEV SERVER -->
+                #FOR PRODUCTION -->
                 params = {'access_key': settings.IPSTACK_API_KEY}
                 ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
                 ipstack_api_request = requests.get('http://api.ipstack.com/%s' % ip_address, params=params)
                 
-                # FOR LOCAL SERVER -->
+                # FOR LOCAL -->
                 # ip_url = 'http://api.ipstack.com/check?access_key=' + settings.IPSTACK_API_KEY
                 # ipstack_api_request = requests.get(ip_url)        
                 
