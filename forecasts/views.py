@@ -28,18 +28,17 @@ class HomeView(TemplateView):
         ipstack_api_status = None
         if not is_cached:
                 #FOR DEV SERVER -->
-                #params = {'access_key': settings.IPSTACK_API_KEY}
-                #ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
-                #ipstack_api_request = requests.get('http://api.ipstack.com/%s' % ip_address, params=params)
+                params = {'access_key': settings.IPSTACK_API_KEY}
+                ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
+                ipstack_api_request = requests.get('http://api.ipstack.com/%s' % ip_address, params=params)
                 
                 # FOR LOCAL SERVER -->
-                ip_url = 'http://api.ipstack.com/check?access_key=' + settings.IPSTACK_API_KEY
-                ipstack_api_request = requests.get(ip_url)        
+                # ip_url = 'http://api.ipstack.com/check?access_key=' + settings.IPSTACK_API_KEY
+                # ipstack_api_request = requests.get(ip_url)        
                 
                 #Verify whether or not error occurred with IpStack response   
                 ipstack_api_info = get_api_info(ipstack_api_request)
-                ipstack_api_status = ipstack_api_info[1]
-                print(f"IPSTACK API STATUS: {ipstack_api_status}") #TESTING  
+                ipstack_api_status = ipstack_api_info[1] 
                 if ipstack_api_status == True:       
                     self.request.session['geodata'] = json.loads(ipstack_api_info[0])             
 
@@ -205,7 +204,6 @@ def get_noaa_data(zipstr):
 
     #Verify whether or not error occurred with NOAA response         
     noaa_api_info = get_api_info(noaa_api_request)        
-    print(f"NOAA API STATUS: {noaa_api_info[1]}") #TESTING 
     
     if noaa_api_info[1] == False:       
         noaa_data.extend([ noaa_api_info[1], noaa_api_info[2] ])
