@@ -27,19 +27,19 @@ class HomeView(TemplateView):
         ipstack_api_info = []
         ipstack_api_status = None
         if not is_cached:
-                #FOR PRODUCTION -->
-                # params = {'access_key': settings.IPSTACK_API_KEY}
-                # ip_address = self.request.META.get('HTTP_X_FORWARDED_FOR', '')
-                # ipstack_api_request = requests.get('http://api.ipstack.com/%s' % ip_address, params=params)
-                
-                ip_url = 'http://api.ipstack.com/check?access_key=' + settings.IPSTACK_API_KEY
-                ipstack_api_request = requests.get(ip_url)        
-                
-                #Verify whether or not error occurred with IpStack response   
-                ipstack_api_info = get_api_info(ipstack_api_request)
-                ipstack_api_status = ipstack_api_info[1] 
-                if ipstack_api_status == True:       
-                    self.request.session['geodata'] = json.loads(ipstack_api_info[0])             
+            #FOR PRODUCTION -->
+            params = {'access_key': settings.IPSTACK_API_KEY}
+            ip_address = self.request.META.get('REMOTE_ADDR')
+            ipstack_api_request = requests.get('http://api.ipstack.com/%s' % ip_address, params=params)
+            #FOR LOCAL -->
+            # ip_url = 'http://api.ipstack.com/check?access_key=' + settings.IPSTACK_API_KEY
+            # ipstack_api_request = requests.get(ip_url)        
+            
+            #Verify whether or not error occurred with IpStack response   
+            ipstack_api_info = get_api_info(ipstack_api_request)
+            ipstack_api_status = ipstack_api_info[1] 
+            if ipstack_api_status == True:       
+                self.request.session['geodata'] = json.loads(ipstack_api_info[0])             
 
         if ipstack_api_status == False:        
             context = {
