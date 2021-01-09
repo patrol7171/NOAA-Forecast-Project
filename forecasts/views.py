@@ -88,7 +88,7 @@ class HomeView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return HttpResponseRedirect('dashboard')
-        return super(HomeView, self).dispatch(request, *args, **kwargs)
+        return super(HomeView, self).dispatch(self.request, *args, **kwargs)
 
 
 
