@@ -4,15 +4,21 @@
 {% block title %}My NOAA Forecast App | Delete Location{% endblock %}
 
 {% block content %}
-
-	<h3 class="my-5">Delete Forecast Location</h3>	
-	<div class="container">	
-		<form method="POST">
-			{% csrf_token %} 
-			{{form |crispy}}
-			<p>Are you sure you want to delete "{{ object }}"?</p> 
-			<button type="submit" class="btn btn-primary btn-block">Confirm Delete</button>
-		</form> 	
+	<div class="row">
+		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+			<div class="card card-signin my-5">
+				<div class="acct card-body">
+					<h3 class="my-2">Delete Forecast Location</h3>	
+					<div class="container">	
+						<form method="POST">
+							{% csrf_token %} 
+							{{form |crispy}}
+							<p>Are you sure you want to delete "{{ object }}"?</p> 
+							<button type="submit" class="btn btn-primary btn-block">Confirm Delete</button>
+						</form> 	
+					</div>		  		
+				</div>
+			</div>
+		</div>
 	</div>
-
 {% endblock %}
