@@ -61,8 +61,6 @@ class HomeView(TemplateView):
                 } 
             else: 
                 dates = noaa_api_info[1]
-                #latitude = noaa_api_info[2][0][0]
-                #longitude = noaa_api_info[2][0][1]
                 maxTemps = noaa_api_info[3][0][0]
                 minTemps = noaa_api_info[3][1][0]
                 icons = noaa_api_info[3][2][0]
@@ -257,7 +255,13 @@ def get_noaa_data(zipstr):
                 elif element.tag == 'conditions-icon':
                     for child in element:
                         if child.tag == 'icon-link':
-                            icons.append(child.text)
+                            #icons.append(child.text)
+                            url = child.text
+                            left = 'fcicons/'
+                            right = '.jpg'
+                            file_name = url[url.index(left)+len(left):url.index(right)]
+                            new_url = 'https://forecast.weather.gov/newimages/medium/'+file_name+'.png'
+                            icons.append(new_url)
             maxTemps = temps[0:5]
             all_max_temps.append(maxTemps)
             minTemps = temps[5:10]
