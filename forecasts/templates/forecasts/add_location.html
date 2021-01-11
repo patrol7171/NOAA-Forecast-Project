@@ -4,16 +4,21 @@
 {% block title %}My NOAA Forecast App | Add Location{% endblock %}
 
 {% block content %}
-
-	<h3 class="my-5">Add Forecast Locations</h3>
-	<p>Enter a valid US zipcode to add a location.</p>
-	
-	<div class="container">
-		<form method="POST" enctype="multipart/form-data">
-			{% csrf_token %}
-			{{form |crispy}}
-			<button type="submit" class="btn btn-primary btn-block">Add Zipcode</button>
-		</form>				
+	<div class="row">
+		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+			<div class="card card-signin my-5">
+				<div class="acct card-body">
+					<h3 class="my-5">Add Forecast Locations</h3>
+					<p>Enter a valid US zipcode to add a location.</p>
+					<div class="container">
+						<form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						{{form |crispy}}
+						<button type="submit" class="btn btn-primary btn-block">Add Zipcode</button>
+						</form>				
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
 {% endblock %}
