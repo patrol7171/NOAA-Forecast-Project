@@ -16,7 +16,7 @@ class LocationForm(forms.ModelForm):
         super(LocationForm, self).__init__(*args, **kwargs)
 
     def clean_zipcode(self):
-        zipcode = self.cleaned_data['zipcode']
+        zipcode = self.cleaned_data['zipcode'][:5]
         if Location.objects.filter(owner_id=self.owner, zipcode=zipcode).exists():
             raise forms.ValidationError("You already have this zipcode in your list.")
         elif zipcodes.is_real(zipcode) == False:
