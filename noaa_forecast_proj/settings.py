@@ -9,7 +9,7 @@ import dotenv
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# Use .env locally only--should not exist on Heroku due to gitignore
+# Use .env locally only--does not exist on Heroku due to gitignore
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
@@ -76,12 +76,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'noaa_forecast_proj.wsgi.application'
 
 
-# Database
+# Database Info
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 #DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE':'django.db.backends.postgresql',
+#         'NAME':'da4l3e9gdo8qq8',                  
+#         'USER':'cyupknyzuyxvkx',
+#         'PASSWORD':'bad56abdabab8ad7d4a04e842dd17d5f704f9227dbd485259d07d0358202b43c',
+#         'HOST':'ec2-23-23-88-216.compute-1.amazonaws.com',
+#         'PORT':'5432',
 #     }
 # }
 DATABASES = {}
@@ -121,12 +131,6 @@ USE_TZ = True
 
 # Static & Media files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-## LOCAL SETTINGS ##
-#STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_FILE_STORAGE = 'noaa_forecast_proj.backend.AzureMediaStorage'
 STATICFILES_STORAGE  = 'noaa_forecast_proj.backend.AzureStaticStorage'
 AZURE_STORAGE_KEY = os.environ['AZURE_STORAGE_KEY1']
