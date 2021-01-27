@@ -7,6 +7,8 @@ import django_heroku
 import dj_database_url
 import dotenv
 
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Use .env locally only--should not exist on Heroku due to gitignore
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
@@ -18,8 +20,6 @@ DEBUG_PROPAGATE_EXCEPTIONS = True
 ALLOWED_HOSTS = ['nfp-app.herokuapp.com']
 
 SECRET_KEY = os.environ['APP_SECRET_KEY']
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 GOOGLE_MAPS_API_KEY = os.environ['GOOGLE_MAPS_API_KEY']
 IPSTACK_API_KEY = os.environ['IPSTACK_API_KEY']
