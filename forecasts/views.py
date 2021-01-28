@@ -255,13 +255,13 @@ def get_noaa_data(zipstr):
                 elif element.tag == 'conditions-icon':
                     for child in element:
                         if child.tag == 'icon-link':
-                            #icons.append(child.text)
-                            url = child.text
-                            left = 'fcicons/'
-                            right = '.jpg'
-                            file_name = url[url.index(left)+len(left):url.index(right)]
-                            new_url = 'https://forecast.weather.gov/newimages/medium/'+file_name+'.png'
-                            icons.append(new_url)
+                            icons.append(child.text)
+                            # url = child.text
+                            # left = 'fcicons/'
+                            # right = '.jpg'
+                            # file_name = url[url.index(left)+len(left):url.index(right)]
+                            # new_url = 'https://forecast.weather.gov/newimages/medium/'+file_name+'.png'
+                            # icons.append(new_url)
             maxTemps = temps[0:5]
             all_max_temps.append(maxTemps)
             minTemps = temps[5:10]
