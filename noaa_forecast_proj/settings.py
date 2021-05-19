@@ -84,16 +84,7 @@ WSGI_APPLICATION = 'noaa_forecast_proj.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE':'django.db.backends.postgresql',
-#         'NAME':'da4l3e9gdo8qq8',                  
-#         'USER':'cyupknyzuyxvkx',
-#         'PASSWORD':'bad56abdabab8ad7d4a04e842dd17d5f704f9227dbd485259d07d0358202b43c',
-#         'HOST':'ec2-23-23-88-216.compute-1.amazonaws.com',
-#         'PORT':'5432',
-#     }
-# }
+
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
