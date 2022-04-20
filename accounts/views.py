@@ -20,10 +20,10 @@ class RegistrationView(CreateView):
         return context
 
     def get_success_url(self):
-        next_url = self.request.POST.get('next')
+        #next_url = self.request.POST.get('next')
         success_url = reverse('login')
-        if next_url:
-            success_url += '?next={}'.format(next_url)
+        # if next_url:
+            # success_url += '?next={}'.format(next_url)
 
         return success_url
 
