@@ -133,10 +133,10 @@ STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_STATIC_CONTAINER}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_MEDIA_CONTAINER}/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'noaa_forecast_proj', 'static')
-]
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'noaa_forecast_proj', 'static')
+# ]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 LOGIN_REDIRECT_URL = 'dashboard'
