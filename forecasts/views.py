@@ -28,7 +28,7 @@ class HomeView(TemplateView):
         ipstack_api_status = None
         if not is_cached:
             #FOR LOCAL -->
-            if settings.IS_LOCAL:
+            if settings.IS_LOCAL == True:
                 ip_url = 'http://api.ipstack.com/check?access_key=' + settings.IPSTACK_API_KEY
                 ipstack_api_request = requests.get(ip_url) 
             #FOR PRODUCTION -->
