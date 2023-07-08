@@ -27,13 +27,15 @@ class HomeView(TemplateView):
         ipstack_api_info = []
         ipstack_api_status = None
         if not is_cached:
-            #FOR PRODUCTION -->
-            params = {'access_key': settings.IPSTACK_API_KEY}
-            ip_address = self.request.META.get('HTTP_X_FORWARDED_FOR')
-            ipstack_api_request = requests.get('http://api.ipstack.com/%s' % ip_address, params=params)
             #FOR LOCAL -->
-            # ip_url = 'http://api.ipstack.com/check?access_key=' + settings.IPSTACK_API_KEY
-            # ipstack_api_request = requests.get(ip_url)        
+            if settings.IS_LOCAL:
+                ip_url = 'http://api.ipstack.com/check?access_key=' + settings.IPSTACK_API_KEY
+                ipstack_api_request = requests.get(ip_url) 
+            #FOR PRODUCTION -->
+            else: 
+                params = {'access_key': settings.IPSTACK_API_KEY}
+                ip_address = self.request.META.get('HTTP_X_FORWARDED_FOR')
+                ipstack_api_request = requests.get('http://api.ipstack.com/%s' % ip_address, params=params)
             
             #Verify whether or not error occurred with IpStack response   
             ipstack_api_info = get_api_info(ipstack_api_request)
