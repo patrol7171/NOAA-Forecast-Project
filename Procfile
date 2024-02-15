@@ -1,1 +1,0 @@
-web: gunicorn noaa_forecast_proj.wsgi
