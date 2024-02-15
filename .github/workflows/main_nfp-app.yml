@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'nfp-app'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_87F0C7098C2241DDB6325C552B07E7B1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C940E1F06D2B4BE39FDF2B898862BEDD }}
